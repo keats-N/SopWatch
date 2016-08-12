@@ -141,7 +141,7 @@
     
     //添加显示计次时间的tableView
     _tableView = [UITableView new];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = 36;
@@ -186,11 +186,9 @@
         
         [self.timeArray addObject:_cornerLabel.text];
         _secondsForCornerLabel = 0;
-       // NSLog(@"%@",_tableView);
         NSLog(@"第%lu次:%@", (unsigned long)_timeArray.count, _cornerLabel.text);
         [self.tableView reloadData];
     } else {
-        
         
          NSLog(@"复位.....");
         _timer = nil;
@@ -227,16 +225,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     static NSString *identity = @"JRTableCell";
     MyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if(cell == nil) {
         cell = [[MyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identity];
-        cell.label.textAlignment=NSTextAlignmentCenter;
+        cell.label.textAlignment = NSTextAlignmentCenter;
         
     }
     NSInteger originRow = indexPath.row;
     NSInteger reverseRow = _timeArray.count - 1 - originRow;
-    NSString *stringText = [[NSString alloc] initWithFormat:@"第%d次\t\t%@", reverseRow + 1, [self.timeArray objectAtIndex:reverseRow]];
+    NSString *stringText = [[NSString alloc] initWithFormat:@"第%ld次\t\t%@", reverseRow + 1, [self.timeArray objectAtIndex:reverseRow]];
     cell.label.text = stringText;
     return cell;
 }

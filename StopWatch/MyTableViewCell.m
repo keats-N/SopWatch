@@ -27,9 +27,8 @@
     if (self) {
         
         _buttonForCell = [UIButton new];
-        //[_buttonForCell setTitle:@"标记" forState:UIControlStateNormal];
         [_buttonForCell setBackgroundImage:[UIImage imageNamed:@"2.png"] forState:UIControlStateNormal];
-        [_buttonForCell setBackgroundImage:[UIImage imageNamed:@"1.png"] forState:UIControlStateReserved];
+        [_buttonForCell setBackgroundImage:[UIImage imageNamed:@"1.png"] forState:UIControlStateSelected];
         [_buttonForCell addTarget:self action:@selector(mark:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_buttonForCell];
         [_buttonForCell mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -46,21 +45,15 @@
             make.top.equalTo(self.contentView.mas_top);
         }];
     }
-    return self;
+    
+        return self;
 }
 
 - (void)mark:(id)sender {
     
     UIButton *button = (UIButton *)sender;
-    if (!buttonPressed) {
-        
-        [button setBackgroundImage:[UIImage imageNamed:@"1.png"] forState:UIControlStateNormal];
-    } else {
-        
-        [button setBackgroundImage:[UIImage imageNamed:@"2.png"] forState:UIControlStateNormal];
-    }
-    buttonPressed = !buttonPressed;
     
+    button.selected = !button.selected;
 }
 
 @end
